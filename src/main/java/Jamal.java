@@ -16,20 +16,40 @@ public class Jamal {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
+        String[] tasks = new String[100]; //array to store tasks
+        int taskCount = 0;
 
         while (true) {
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
 
             if (input.equals("bye")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("Aight bro, take care! Catch you later");
                 System.out.println("____________________________________________________________");
                 break;
+            } else if (input.equals("list")) {
+                System.out.println("____________________________________________________________");
+                if (taskCount == 0) {
+                    System.out.println("Yo bro, you got nothing yet! Start adding tasks.");
+                } else {
+                    for (int i = 0; i < taskCount; i++) {
+                        System.out.println((i + 1) + ". " + tasks[i]);
+                    }
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                if (taskCount < 100) {
+                    tasks[taskCount] = input;
+                    taskCount++;
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Aight, added: " + input);
+                    System.out.println("____________________________________________________________");
+                } else {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Yo bro, my memory full! Can't store more tasks.");
+                    System.out.println("____________________________________________________________");
+                }
             }
-
-            System.out.println("____________________________________________________________");
-            System.out.println("Yo, you said: " + input);
-            System.out.println("____________________________________________________________");
         }
 
         scanner.close();
