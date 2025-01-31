@@ -16,7 +16,7 @@ public class Jamal {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        String[] tasks = new String[100]; //array to store tasks
+        Task[] tasks = new Task[100]; //using task class instead of string array
         int taskCount = 0;
 
         while (true) {
@@ -32,14 +32,49 @@ public class Jamal {
                 if (taskCount == 0) {
                     System.out.println("Yo bro, you got nothing yet! Start adding tasks.");
                 } else {
+                    System.out.println("You got a lot to do boy:");
                     for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
+                        System.out.println((i + 1) + "." + tasks[i].getTaskDisplay());
                     }
                 }
                 System.out.println("____________________________________________________________");
+                //marking tasks
+            } else if (input.startsWith("mark ")) {
+                try {
+                    int taskIndex = Integer.parseInt(input.substring(5)) - 1;
+                    if (taskIndex >= 0 && taskIndex < taskCount) {
+                        tasks[taskIndex].markAsDone();
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Lesgooo i've marked this task as done:");
+                        System.out.println("  " + tasks[taskIndex].getTaskDisplay());
+                        System.out.println("____________________________________________________________");
+                    } else {
+                        System.out.println("Bruh, that task number ain't valid.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Yo, type a valid task number after 'mark'.");
+                }
+
+            //unmarking tasks
+            } else if (input.startsWith("unmark ")) {
+                try {
+                    int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+                    if (taskIndex >= 0 && taskIndex < taskCount) {
+                        tasks[taskIndex].unmarkAsDone();
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Damn i thought you finished it already, guess not:");
+                        System.out.println("  " + tasks[taskIndex].getTaskDisplay());
+                        System.out.println("____________________________________________________________");
+                    } else {
+                        System.out.println("Bruh, that task number ain't valid.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Yo, type a valid task number after 'unmark'.");
+                }
+
             } else {
                 if (taskCount < 100) {
-                    tasks[taskCount] = input;
+                    tasks[taskCount] = new Task(input);
                     taskCount++;
                     System.out.println("____________________________________________________________");
                     System.out.println("Aight, added: " + input);
