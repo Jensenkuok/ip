@@ -55,7 +55,7 @@ public class Jamal {
                     System.out.println("Yo, type a valid task number after 'mark'.");
                 }
 
-            //unmarking tasks
+                //unmarking tasks
             } else if (input.startsWith("unmark ")) {
                 try {
                     int taskIndex = Integer.parseInt(input.substring(7)) - 1;
