@@ -109,6 +109,32 @@ public class Jamal {
                 } catch (Exception e) {
                     System.out.println("Hey man, use the format: deadline <task> /by <time>");
                 }
+            } else if (input.startsWith("event ")) {
+                try {
+                    int fromIndex = input.indexOf("/from");
+                    int toIndex = input.indexOf("/to");
+
+                    if (fromIndex == -1 || toIndex == -1 || fromIndex > toIndex) {
+                        throw new Exception();
+                    }
+
+                    String taskDescription = input.substring(6, fromIndex).trim();
+                    String from = input.substring(fromIndex + 6, toIndex).trim();
+                    String to = input.substring(toIndex + 4).trim();
+
+                    tasks[taskCount] = new Event(taskDescription, from, to);
+                    taskCount++;
+
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Got it! One more task for you:");
+                    System.out.println("  " + tasks[taskCount - 1].getTaskDisplay());
+                    System.out.println("Now you got " + taskCount + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+
+                } catch (Exception e) {
+                    System.out.println("Hey man, use the format: event <task> /from <start> /to <end>");
+                }
+
             } else {
                 if (taskCount < 100) {
                     tasks[taskCount] = new Task(input);
