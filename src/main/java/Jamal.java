@@ -11,7 +11,7 @@ public class Jamal {
                 + "O     o  o   O   o  O  O o   O  o \n"
                 + "`OooOO'  `OoO'o  O  o  o `OoO'o Oo\n";
 
-        System.out.println("Yo it's your boy Jamal\n" + logo);
+        System.out.println("Hey man it's your boy Jamal\n" + logo);
         System.out.println("Tell me anything, I gotchu");
         System.out.println("____________________________________________________________");
 
@@ -30,7 +30,7 @@ public class Jamal {
             } else if (input.equals("list")) {
                 System.out.println("____________________________________________________________");
                 if (taskCount == 0) {
-                    System.out.println("Yo bro, you got nothing yet! Start adding tasks.");
+                    System.out.println("Hey man, you got nothing yet! Start adding tasks.");
                 } else {
                     System.out.println("You got a lot to do boy:");
                     for (int i = 0; i < taskCount; i++) {
@@ -52,7 +52,7 @@ public class Jamal {
                         System.out.println("Bruh, that task number ain't valid.");
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("Yo, type a valid task number after 'mark'.");
+                    System.out.println("Hey man, type a valid task number after 'mark'.");
                 }
 
                 //unmarking tasks
@@ -69,7 +69,7 @@ public class Jamal {
                         System.out.println("Bruh, that task number ain't valid.");
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("Yo, type a valid task number after 'unmark'.");
+                    System.out.println("Hey man, type a valid task number after 'unmark'.");
                 }
 
             } else {
@@ -81,7 +81,7 @@ public class Jamal {
                     System.out.println("____________________________________________________________");
                 } else {
                     System.out.println("____________________________________________________________");
-                    System.out.println("Yo bro, my memory full! Can't store more tasks.");
+                    System.out.println("Hey manbro, my memory full! Can't store more tasks.");
                     System.out.println("____________________________________________________________");
                 }
             }
