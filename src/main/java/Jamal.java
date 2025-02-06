@@ -72,6 +72,20 @@ public class Jamal {
                     System.out.println("Hey man, type a valid task number after 'unmark'.");
                 }
 
+            } else if (input.startsWith("todo ")) {  //g
+                String taskDescription = input.substring(5).trim();
+                if (!taskDescription.isEmpty()) {
+                    tasks[taskCount] = new ToDo(taskDescription);
+                    taskCount++;
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[taskCount - 1].getTaskDisplay());
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } else {
+                    System.out.println("Hey man, ToDo task cannot be empty.");
+                }
+
             } else {
                 if (taskCount < 100) {
                     tasks[taskCount] = new Task(input);
@@ -81,7 +95,7 @@ public class Jamal {
                     System.out.println("____________________________________________________________");
                 } else {
                     System.out.println("____________________________________________________________");
-                    System.out.println("Hey manbro, my memory full! Can't store more tasks.");
+                    System.out.println("Hey man bro, my memory full! Can't store more tasks.");
                     System.out.println("____________________________________________________________");
                 }
             }
