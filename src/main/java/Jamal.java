@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Jamal {
+    static final int MAX_TASKS = 100;
+
     public static void main(String[] args) {
         String logo = "\n  OooOoo                         o\n"
                 + "      O                         O \n"
@@ -16,7 +18,7 @@ public class Jamal {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100]; //using task class instead of string array
+        Task[] tasks = new Task[MAX_TASKS]; //using task class instead of string array
         int taskCount = 0;
 
         while (true) {
@@ -136,7 +138,7 @@ public class Jamal {
                 }
 
             } else {
-                if (taskCount < 100) {
+                if (taskCount < MAX_TASKS) {
                     tasks[taskCount] = new Task(input);
                     taskCount++;
                     System.out.println("____________________________________________________________");
