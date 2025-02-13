@@ -1,3 +1,5 @@
+package jamal;
+
 public class Deadline extends Task {
     protected String by; // Stores deadline details
 

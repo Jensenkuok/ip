@@ -1,3 +1,5 @@
+package jamal;
+
 public class JamalUI {
     private static final String LOGO = "\n  OooOoo                         o\n"
             + "      O                         O \n"
@@ -14,7 +16,7 @@ public class JamalUI {
     public static void showSeparator() {
         System.out.println(SEPARATOR);
     }
-    private static final String WELCOME_MESSAGE = "Hey man it's your boy Jamal\n" + LOGO +
+    private static final String WELCOME_MESSAGE = "Hey man it's your boy jamal.Jamal\n" + LOGO +
             "\nTell me anything, I gotchu\n" + SEPARATOR;
 
     public static void showWelcomeMessage() {

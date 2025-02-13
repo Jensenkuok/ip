@@ -1,3 +1,5 @@
+package jamal;
+
 public class Event extends Task {
     protected String from; // Start time
     protected String to;   // End time
