@@ -4,18 +4,8 @@ public class Jamal {
     static final int MAX_TASKS = 100;
 
     public static void main(String[] args) {
-        String logo = "\n  OooOoo                         o\n"
-                + "      O                         O \n"
-                + "      o                         o \n"
-                + "      O                         O \n"
-                + "      o  .oOoO' `oOOoOO. .oOoO' o \n"
-                + "      O  O   o   O  o  o O   o  O \n"
-                + "O     o  o   O   o  O  O o   O  o \n"
-                + "`OooOO'  `OoO'o  O  o  o `OoO'o Oo\n";
-
-        System.out.println("Hey man it's your boy Jamal\n" + logo);
-        System.out.println("Tell me anything, I gotchu");
-        System.out.println("____________________________________________________________");
+        
+        JamalUI.showWelcomeMessage();
 
         Scanner scanner = new Scanner(System.in);
         Task[] tasks = new Task[MAX_TASKS]; //using task class instead of string array
