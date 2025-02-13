@@ -62,21 +62,27 @@ public class Jamal {
                     System.out.println("Hey man, type a valid task number after 'unmark'.");
                 }
 
-            } else if (input.startsWith("todo ")) {
-                String taskDescription = input.substring(5).trim();
-                if (!taskDescription.isEmpty()) {
-                    tasks[taskCount] = new ToDo(taskDescription);
+            } else if (input.startsWith("todo")) {
+                try {
+                    String taskDescription = input.substring(4).trim();
+                    if (taskDescription.isEmpty()) {
+                        throw new IllegalArgumentException();
+                    }
+                        tasks[taskCount] = new ToDo(taskDescription);
                     taskCount++;
                     JamalUI.showSeparator();
                     System.out.println("Got it! One more task for you:");
                     System.out.println("  " + tasks[taskCount - 1].getTaskDisplay());
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
                     JamalUI.showSeparator();
-                } else {
-                    System.out.println("Hey man, ToDo task cannot be empty.");
+                } catch (IllegalArgumentException e) {
+                    JamalUI.showSeparator();
+                    System.out.println("Hey man, todo task cannot be empty.");
+                    System.out.println("Use the format: todo <task>");
+                    JamalUI.showSeparator();
                 }
 
-            } else if (input.startsWith("deadline ")) {
+            } else if (input.startsWith("deadline")) {
                 try {
                     int byIndex = input.indexOf("/by");
 
@@ -84,7 +90,7 @@ public class Jamal {
                         throw new Exception();
                     }
 
-                    String taskDescription = input.substring(9, byIndex).trim();
+                    String taskDescription = input.substring(8, byIndex).trim();
                     String deadline = input.substring(byIndex + 4).trim();
 
                     tasks[taskCount] = new Deadline(taskDescription, deadline);
@@ -99,7 +105,7 @@ public class Jamal {
                 } catch (Exception e) {
                     System.out.println("Hey man, use the format: deadline <task> /by <time>");
                 }
-            } else if (input.startsWith("event ")) {
+            } else if (input.startsWith("event")) {
                 try {
                     int fromIndex = input.indexOf("/from");
                     int toIndex = input.indexOf("/to");
@@ -108,7 +114,7 @@ public class Jamal {
                         throw new Exception();
                     }
 
-                    String taskDescription = input.substring(6, fromIndex).trim();
+                    String taskDescription = input.substring(5, fromIndex).trim();
                     String from = input.substring(fromIndex + 6, toIndex).trim();
                     String to = input.substring(toIndex + 4).trim();
 
@@ -126,15 +132,11 @@ public class Jamal {
                 }
 
             } else {
-                if (taskCount < MAX_TASKS) {
-                    tasks[taskCount] = new Task(input);
-                    taskCount++;
+                try {
+                    throw new IllegalArgumentException();
+                } catch (IllegalArgumentException e) {
                     JamalUI.showSeparator();
-                    System.out.println("Aight, added: " + input);
-                    JamalUI.showSeparator();
-                } else {
-                    JamalUI.showSeparator();
-                    System.out.println("Hey man, my memory full! Can't store more tasks.");
+                    System.out.println("My bad bro, ion know what that means");
                     JamalUI.showSeparator();
                 }
             }
