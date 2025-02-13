@@ -4,18 +4,8 @@ public class Jamal {
     static final int MAX_TASKS = 100;
 
     public static void main(String[] args) {
-        String logo = "\n  OooOoo                         o\n"
-                + "      O                         O \n"
-                + "      o                         o \n"
-                + "      O                         O \n"
-                + "      o  .oOoO' `oOOoOO. .oOoO' o \n"
-                + "      O  O   o   O  o  o O   o  O \n"
-                + "O     o  o   O   o  O  O o   O  o \n"
-                + "`OooOO'  `OoO'o  O  o  o `OoO'o Oo\n";
-
-        System.out.println("Hey man it's your boy Jamal\n" + logo);
-        System.out.println("Tell me anything, I gotchu");
-        System.out.println("____________________________________________________________");
+        
+        JamalUI.showWelcomeMessage();
 
         Scanner scanner = new Scanner(System.in);
         Task[] tasks = new Task[MAX_TASKS]; //using task class instead of string array
@@ -25,12 +15,10 @@ public class Jamal {
             String input = scanner.nextLine().trim();
 
             if (input.equals("bye")) {
-                System.out.println("____________________________________________________________");
-                System.out.println("Aight bro, take care! Catch you later");
-                System.out.println("____________________________________________________________");
+                JamalUI.showGoodbyeMessage();
                 break;
             } else if (input.equals("list")) {
-                System.out.println("____________________________________________________________");
+                JamalUI.showSeparator();
                 if (taskCount == 0) {
                     System.out.println("Hey man, you got nothing yet! Start adding tasks.");
                 } else {
@@ -39,17 +27,17 @@ public class Jamal {
                         System.out.println((i + 1) + "." + tasks[i].getTaskDisplay());
                     }
                 }
-                System.out.println("____________________________________________________________");
+                JamalUI.showSeparator();
                 //marking tasks
             } else if (input.startsWith("mark ")) {
                 try {
                     int taskIndex = Integer.parseInt(input.substring(5)) - 1;
                     if (taskIndex >= 0 && taskIndex < taskCount) {
                         tasks[taskIndex].markAsDone();
-                        System.out.println("____________________________________________________________");
+                        JamalUI.showSeparator();
                         System.out.println("Lesgooo i've marked this task as done:");
                         System.out.println("  " + tasks[taskIndex].getTaskDisplay());
-                        System.out.println("____________________________________________________________");
+                        JamalUI.showSeparator();
                     } else {
                         System.out.println("Bruh, that task number ain't valid.");
                     }
@@ -63,10 +51,10 @@ public class Jamal {
                     int taskIndex = Integer.parseInt(input.substring(7)) - 1;
                     if (taskIndex >= 0 && taskIndex < taskCount) {
                         tasks[taskIndex].unmarkAsDone();
-                        System.out.println("____________________________________________________________");
+                        JamalUI.showSeparator();
                         System.out.println("Damn i thought you finished it already, guess not:");
                         System.out.println("  " + tasks[taskIndex].getTaskDisplay());
-                        System.out.println("____________________________________________________________");
+                        JamalUI.showSeparator();
                     } else {
                         System.out.println("Bruh, that task number ain't valid.");
                     }
@@ -74,21 +62,27 @@ public class Jamal {
                     System.out.println("Hey man, type a valid task number after 'unmark'.");
                 }
 
-            } else if (input.startsWith("todo ")) {
-                String taskDescription = input.substring(5).trim();
-                if (!taskDescription.isEmpty()) {
-                    tasks[taskCount] = new ToDo(taskDescription);
+            } else if (input.startsWith("todo")) {
+                try {
+                    String taskDescription = input.substring(4).trim();
+                    if (taskDescription.isEmpty()) {
+                        throw new IllegalArgumentException();
+                    }
+                        tasks[taskCount] = new ToDo(taskDescription);
                     taskCount++;
-                    System.out.println("____________________________________________________________");
+                    JamalUI.showSeparator();
                     System.out.println("Got it! One more task for you:");
                     System.out.println("  " + tasks[taskCount - 1].getTaskDisplay());
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
-                } else {
-                    System.out.println("Hey man, ToDo task cannot be empty.");
+                    JamalUI.showSeparator();
+                } catch (IllegalArgumentException e) {
+                    JamalUI.showSeparator();
+                    System.out.println("Hey man, todo task cannot be empty.");
+                    System.out.println("Use the format: todo <task>");
+                    JamalUI.showSeparator();
                 }
 
-            } else if (input.startsWith("deadline ")) {
+            } else if (input.startsWith("deadline")) {
                 try {
                     int byIndex = input.indexOf("/by");
 
@@ -96,22 +90,22 @@ public class Jamal {
                         throw new Exception();
                     }
 
-                    String taskDescription = input.substring(9, byIndex).trim();
+                    String taskDescription = input.substring(8, byIndex).trim();
                     String deadline = input.substring(byIndex + 4).trim();
 
                     tasks[taskCount] = new Deadline(taskDescription, deadline);
                     taskCount++;
 
-                    System.out.println("____________________________________________________________");
+                    JamalUI.showSeparator();
                     System.out.println("Got it! One more task for you:");
                     System.out.println("  " + tasks[taskCount - 1].getTaskDisplay());
                     System.out.println("Now you got " + taskCount + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    JamalUI.showSeparator();
 
                 } catch (Exception e) {
                     System.out.println("Hey man, use the format: deadline <task> /by <time>");
                 }
-            } else if (input.startsWith("event ")) {
+            } else if (input.startsWith("event")) {
                 try {
                     int fromIndex = input.indexOf("/from");
                     int toIndex = input.indexOf("/to");
@@ -120,34 +114,30 @@ public class Jamal {
                         throw new Exception();
                     }
 
-                    String taskDescription = input.substring(6, fromIndex).trim();
+                    String taskDescription = input.substring(5, fromIndex).trim();
                     String from = input.substring(fromIndex + 6, toIndex).trim();
                     String to = input.substring(toIndex + 4).trim();
 
                     tasks[taskCount] = new Event(taskDescription, from, to);
                     taskCount++;
 
-                    System.out.println("____________________________________________________________");
+                    JamalUI.showSeparator();
                     System.out.println("Got it! One more task for you:");
                     System.out.println("  " + tasks[taskCount - 1].getTaskDisplay());
                     System.out.println("Now you got " + taskCount + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    JamalUI.showSeparator();
 
                 } catch (Exception e) {
                     System.out.println("Hey man, use the format: event <task> /from <start> /to <end>");
                 }
 
             } else {
-                if (taskCount < MAX_TASKS) {
-                    tasks[taskCount] = new Task(input);
-                    taskCount++;
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Aight, added: " + input);
-                    System.out.println("____________________________________________________________");
-                } else {
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Hey man, my memory full! Can't store more tasks.");
-                    System.out.println("____________________________________________________________");
+                try {
+                    throw new IllegalArgumentException();
+                } catch (IllegalArgumentException e) {
+                    JamalUI.showSeparator();
+                    System.out.println("My bad bro, ion know what that means");
+                    JamalUI.showSeparator();
                 }
             }
         }
