@@ -1,4 +1,4 @@
-# Jamal User Guide
+# jamal.Jamal User Guide
 
 // Update the title above to match the actual product name
 

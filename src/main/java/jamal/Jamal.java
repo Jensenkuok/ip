@@ -1,3 +1,5 @@
+package jamal;
+
 import java.util.Scanner;
 
 public class Jamal {
