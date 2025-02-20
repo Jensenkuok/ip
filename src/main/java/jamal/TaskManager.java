@@ -74,4 +74,18 @@ public class TaskManager {
         System.out.println("Now you got " + tasks.size() + " tasks in the list.");
         JamalUI.showSeparator();
     }
+
+    public void deleteTask(int taskIndex) {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task removedTask = tasks.remove(taskIndex);
+            JamalUI.showSeparator();
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask.getTaskDisplay());
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            JamalUI.showSeparator();
+        } else {
+            System.out.println("Bruh, that task number ain't valid.");
+        }
+    }
+
 }

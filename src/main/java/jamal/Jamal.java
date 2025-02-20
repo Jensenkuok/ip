@@ -29,7 +29,7 @@ public class Jamal {
                 }
 
                 //unmarking tasks
-            } else if (input.startsWith("unmark ")) {
+            } else if (input.startsWith("unmark r")) {
                 try {
                     int taskIndex = Integer.parseInt(input.substring(7)) - 1;
                     taskManager.unmarkTask(taskIndex);
@@ -85,7 +85,15 @@ public class Jamal {
                     System.out.println("Hey man, use the format: event <task> /from <start> /to <end>");
                 }
 
-            } else {
+            } else if(input.startsWith("delete ")) {
+                try {
+                    int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+                    taskManager.deleteTask(taskIndex);
+                } catch (NumberFormatException e) {
+                    System.out.println("Hey man, type a valid task number after 'delete'.");
+                }
+            }
+            else {
                 try {
                     throw new IllegalArgumentException();
                 } catch (IllegalArgumentException e) {
