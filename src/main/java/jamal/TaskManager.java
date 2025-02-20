@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 public class TaskManager {
     private final ArrayList<Task> tasks;
+    private final Storage storage;
 
     public TaskManager() {
-        this.tasks = new ArrayList<>();
+        this.storage = new Storage();
+        this.tasks = storage.loadTasks();
     }
 
     public void listTasks() {
@@ -25,6 +27,7 @@ public class TaskManager {
     public void markTask(int taskIndex) {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             tasks.get(taskIndex).markAsDone();
+            storage.saveTasks(tasks);
             JamalUI.showSeparator();
             System.out.println("Lesgooo i've marked this task as done:");
             System.out.println("  " + tasks.get(taskIndex).getTaskDisplay());
@@ -37,6 +40,7 @@ public class TaskManager {
     public void unmarkTask(int taskIndex) {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             tasks.get(taskIndex).unmarkAsDone();
+            storage.saveTasks(tasks);
             JamalUI.showSeparator();
             System.out.println("Damn i thought you finished it already, guess not:");
             System.out.println("  " + tasks.get(taskIndex).getTaskDisplay());
@@ -48,6 +52,7 @@ public class TaskManager {
 
     public void addTodoTask(String taskDescription) {
         tasks.add(new ToDo(taskDescription));
+        storage.saveTasks(tasks);
         JamalUI.showSeparator();
         System.out.println("Got it! One more task for you:");
         System.out.println("  " + tasks.get(tasks.size() - 1).getTaskDisplay());
@@ -57,7 +62,7 @@ public class TaskManager {
 
     public void addDeadlineTask(String taskDescription, String deadline) {
         tasks.add(new Deadline(taskDescription, deadline));
-
+        storage.saveTasks(tasks);
         JamalUI.showSeparator();
         System.out.println("Got it! One more task for you:");
         System.out.println("  " + tasks.get(tasks.size() - 1).getTaskDisplay());
@@ -67,7 +72,7 @@ public class TaskManager {
 
     public void addEventTask(String taskDescription, String from, String to) {
         tasks.add(new Event(taskDescription, from, to));
-
+        storage.saveTasks(tasks);
         JamalUI.showSeparator();
         System.out.println("Got it! One more task for you:");
         System.out.println("  " + tasks.get(tasks.size() - 1).getTaskDisplay());
@@ -78,6 +83,7 @@ public class TaskManager {
     public void deleteTask(int taskIndex) {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task removedTask = tasks.remove(taskIndex);
+            storage.saveTasks(tasks);
             JamalUI.showSeparator();
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + removedTask.getTaskDisplay());
