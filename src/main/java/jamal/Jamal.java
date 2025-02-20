@@ -1,17 +1,16 @@
 package jamal;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Jamal {
-    static final int MAX_TASKS = 100;
 
     public static void main(String[] args) {
         
         JamalUI.showWelcomeMessage();
 
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[MAX_TASKS]; //using task class instead of string array
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while (true) {
             String input = scanner.nextLine().trim();
@@ -21,12 +20,12 @@ public class Jamal {
                 break;
             } else if (input.equals("list")) {
                 JamalUI.showSeparator();
-                if (taskCount == 0) {
+                if (tasks.isEmpty()) {
                     System.out.println("Hey man, you got nothing yet! Start adding tasks.");
                 } else {
                     System.out.println("You got a lot to do boy:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + "." + tasks[i].getTaskDisplay());
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + "." + tasks.get(i).getTaskDisplay());
                     }
                 }
                 JamalUI.showSeparator();
@@ -34,11 +33,11 @@ public class Jamal {
             } else if (input.startsWith("mark ")) {
                 try {
                     int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-                    if (taskIndex >= 0 && taskIndex < taskCount) {
-                        tasks[taskIndex].markAsDone();
+                    if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                        tasks.get(taskIndex).markAsDone();
                         JamalUI.showSeparator();
                         System.out.println("Lesgooo i've marked this task as done:");
-                        System.out.println("  " + tasks[taskIndex].getTaskDisplay());
+                        System.out.println("  " + tasks.get(taskIndex).getTaskDisplay());
                         JamalUI.showSeparator();
                     } else {
                         System.out.println("Bruh, that task number ain't valid.");
@@ -51,11 +50,11 @@ public class Jamal {
             } else if (input.startsWith("unmark ")) {
                 try {
                     int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-                    if (taskIndex >= 0 && taskIndex < taskCount) {
-                        tasks[taskIndex].unmarkAsDone();
+                    if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                        tasks.get(taskIndex).unmarkAsDone();
                         JamalUI.showSeparator();
                         System.out.println("Damn i thought you finished it already, guess not:");
-                        System.out.println("  " + tasks[taskIndex].getTaskDisplay());
+                        System.out.println("  " + tasks.get(taskIndex).getTaskDisplay());
                         JamalUI.showSeparator();
                     } else {
                         System.out.println("Bruh, that task number ain't valid.");
@@ -70,12 +69,11 @@ public class Jamal {
                     if (taskDescription.isEmpty()) {
                         throw new IllegalArgumentException();
                     }
-                        tasks[taskCount] = new ToDo(taskDescription);
-                    taskCount++;
+                    tasks.add(new ToDo(taskDescription));
                     JamalUI.showSeparator();
                     System.out.println("Got it! One more task for you:");
-                    System.out.println("  " + tasks[taskCount - 1].getTaskDisplay());
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1).getTaskDisplay());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     JamalUI.showSeparator();
                 } catch (IllegalArgumentException e) {
                     JamalUI.showSeparator();
@@ -94,14 +92,12 @@ public class Jamal {
 
                     String taskDescription = input.substring(8, byIndex).trim();
                     String deadline = input.substring(byIndex + 4).trim();
-
-                    tasks[taskCount] = new Deadline(taskDescription, deadline);
-                    taskCount++;
+                    tasks.add(new Deadline(taskDescription, deadline));
 
                     JamalUI.showSeparator();
                     System.out.println("Got it! One more task for you:");
-                    System.out.println("  " + tasks[taskCount - 1].getTaskDisplay());
-                    System.out.println("Now you got " + taskCount + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1).getTaskDisplay());
+                    System.out.println("Now you got " + tasks.size() + " tasks in the list.");
                     JamalUI.showSeparator();
 
                 } catch (Exception e) {
@@ -120,13 +116,12 @@ public class Jamal {
                     String from = input.substring(fromIndex + 6, toIndex).trim();
                     String to = input.substring(toIndex + 4).trim();
 
-                    tasks[taskCount] = new Event(taskDescription, from, to);
-                    taskCount++;
+                    tasks.add(new Event(taskDescription, from, to));
 
                     JamalUI.showSeparator();
                     System.out.println("Got it! One more task for you:");
-                    System.out.println("  " + tasks[taskCount - 1].getTaskDisplay());
-                    System.out.println("Now you got " + taskCount + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1).getTaskDisplay());
+                    System.out.println("Now you got " + tasks.size() + " tasks in the list.");
                     JamalUI.showSeparator();
 
                 } catch (Exception e) {
