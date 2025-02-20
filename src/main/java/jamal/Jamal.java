@@ -1,6 +1,5 @@
 package jamal;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Jamal {
@@ -10,7 +9,7 @@ public class Jamal {
         JamalUI.showWelcomeMessage();
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        TaskManager taskManager = new TaskManager();
 
         while (true) {
             String input = scanner.nextLine().trim();
@@ -19,29 +18,12 @@ public class Jamal {
                 JamalUI.showGoodbyeMessage();
                 break;
             } else if (input.equals("list")) {
-                JamalUI.showSeparator();
-                if (tasks.isEmpty()) {
-                    System.out.println("Hey man, you got nothing yet! Start adding tasks.");
-                } else {
-                    System.out.println("You got a lot to do boy:");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println((i + 1) + "." + tasks.get(i).getTaskDisplay());
-                    }
-                }
-                JamalUI.showSeparator();
+                taskManager.listTasks();
                 //marking tasks
             } else if (input.startsWith("mark ")) {
                 try {
                     int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-                    if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                        tasks.get(taskIndex).markAsDone();
-                        JamalUI.showSeparator();
-                        System.out.println("Lesgooo i've marked this task as done:");
-                        System.out.println("  " + tasks.get(taskIndex).getTaskDisplay());
-                        JamalUI.showSeparator();
-                    } else {
-                        System.out.println("Bruh, that task number ain't valid.");
-                    }
+                    taskManager.markTask(taskIndex);
                 } catch (NumberFormatException e) {
                     System.out.println("Hey man, type a valid task number after 'mark'.");
                 }
@@ -50,15 +32,7 @@ public class Jamal {
             } else if (input.startsWith("unmark ")) {
                 try {
                     int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-                    if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                        tasks.get(taskIndex).unmarkAsDone();
-                        JamalUI.showSeparator();
-                        System.out.println("Damn i thought you finished it already, guess not:");
-                        System.out.println("  " + tasks.get(taskIndex).getTaskDisplay());
-                        JamalUI.showSeparator();
-                    } else {
-                        System.out.println("Bruh, that task number ain't valid.");
-                    }
+                    taskManager.unmarkTask(taskIndex);
                 } catch (NumberFormatException e) {
                     System.out.println("Hey man, type a valid task number after 'unmark'.");
                 }
@@ -69,12 +43,7 @@ public class Jamal {
                     if (taskDescription.isEmpty()) {
                         throw new IllegalArgumentException();
                     }
-                    tasks.add(new ToDo(taskDescription));
-                    JamalUI.showSeparator();
-                    System.out.println("Got it! One more task for you:");
-                    System.out.println("  " + tasks.get(tasks.size() - 1).getTaskDisplay());
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    JamalUI.showSeparator();
+                    taskManager.addTodoTask(taskDescription);
                 } catch (IllegalArgumentException e) {
                     JamalUI.showSeparator();
                     System.out.println("Hey man, todo task cannot be empty.");
@@ -92,13 +61,7 @@ public class Jamal {
 
                     String taskDescription = input.substring(8, byIndex).trim();
                     String deadline = input.substring(byIndex + 4).trim();
-                    tasks.add(new Deadline(taskDescription, deadline));
-
-                    JamalUI.showSeparator();
-                    System.out.println("Got it! One more task for you:");
-                    System.out.println("  " + tasks.get(tasks.size() - 1).getTaskDisplay());
-                    System.out.println("Now you got " + tasks.size() + " tasks in the list.");
-                    JamalUI.showSeparator();
+                    taskManager.addDeadlineTask(taskDescription, deadline);
 
                 } catch (Exception e) {
                     System.out.println("Hey man, use the format: deadline <task> /by <time>");
@@ -116,13 +79,7 @@ public class Jamal {
                     String from = input.substring(fromIndex + 6, toIndex).trim();
                     String to = input.substring(toIndex + 4).trim();
 
-                    tasks.add(new Event(taskDescription, from, to));
-
-                    JamalUI.showSeparator();
-                    System.out.println("Got it! One more task for you:");
-                    System.out.println("  " + tasks.get(tasks.size() - 1).getTaskDisplay());
-                    System.out.println("Now you got " + tasks.size() + " tasks in the list.");
-                    JamalUI.showSeparator();
+                    taskManager.addEventTask(taskDescription, from, to);
 
                 } catch (Exception e) {
                     System.out.println("Hey man, use the format: event <task> /from <start> /to <end>");
