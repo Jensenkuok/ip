@@ -1,2 +1,0 @@
-T | 0 | read
-E | 1 | fun | tmr to tmrrrr
