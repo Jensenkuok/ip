@@ -1,14 +1,18 @@
-package jamal;
+package jamal.tasks;
 
 public class Event extends Task {
-    protected String from; // Start time
-    protected String to;   // End time
+    private final String from; // Start time
+    private final String to;   // End time
 
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
     }
+
+    public String getFrom() { return from; }
+
+    public String getTo() { return to; }
 
     @Override
     public String getTaskDisplay() {

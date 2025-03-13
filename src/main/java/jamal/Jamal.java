@@ -2,6 +2,9 @@ package jamal;
 
 import java.util.Scanner;
 
+import jamal.logic.TaskManager;
+import jamal.ui.JamalUI;
+
 public class Jamal {
 
     public static void main(String[] args) {
@@ -29,7 +32,7 @@ public class Jamal {
                 }
 
                 //unmarking tasks
-            } else if (input.startsWith("unmark r")) {
+            } else if (input.startsWith("unmark")) {
                 try {
                     int taskIndex = Integer.parseInt(input.substring(7)) - 1;
                     taskManager.unmarkTask(taskIndex);

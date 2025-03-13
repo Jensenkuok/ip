@@ -1,6 +1,13 @@
-package jamal;
+package jamal.logic;
 
 import java.util.ArrayList;
+
+import jamal.storage.Storage;
+import jamal.tasks.Deadline;
+import jamal.tasks.Event;
+import jamal.tasks.Task;
+import jamal.tasks.ToDo;
+import jamal.ui.JamalUI;
 
 public class TaskManager {
     private final ArrayList<Task> tasks;
