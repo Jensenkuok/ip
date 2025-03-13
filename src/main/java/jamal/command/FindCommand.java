@@ -24,7 +24,6 @@ public class FindCommand extends Command {
      * @param tasks The task list to search within.
      * @param storage The storage (not used in this command).
      */
-
     @Override
     public void execute(TaskList tasks, Storage storage) {
         tasks.findTasks(keyword);

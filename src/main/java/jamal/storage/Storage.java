@@ -15,7 +15,7 @@ import jamal.tasks.ToDo;
  * Handles loading and saving of tasks to a file.
  */
 public class Storage {
-    private static final String FILE_PATH = "data/duke.txt";
+    private static final String FILE_PATH = "data/jamal.txt";
 
     /**
      * Handles loading and saving of tasks to a file.

@@ -84,6 +84,13 @@ public class Parser {
         return new AddCommand("todo", description, null, null);
     }
 
+    /**
+     * Parses and returns an Event command.
+     *
+     * @param input The user input string.
+     * @return A new AddCommand object for an Event task.
+     * @throws IllegalArgumentException If the format is incorrect or any field is missing.
+     */
     private static Command parseEventCommand(String input) {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
@@ -123,17 +130,27 @@ public class Parser {
             return null;
         }
     }
+
+    /**
+     * Parses and returns a Deadline command.
+     *
+     * @param input The user input string.
+     * @return A new AddCommand object for a Deadline task.
+     * @throws IllegalArgumentException If the format is incorrect or any field is missing.
+     */
     private static Command parseDeadlineCommand(String input) {
         int byIndex = input.indexOf("/by");
         if (byIndex == -1) {
-            throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
+            throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>\n" +
+                    "e.g., deadline read /by 2/12/2019 1800");
         }
 
         String description = input.substring(9, byIndex).trim();
         String deadline = input.substring(byIndex + 4).trim();
 
         if (description.isEmpty() || deadline.isEmpty()) {
-            throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
+            throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>\n" +
+                    "e.g., deadline read /by 2/12/2019 1800");
         }
 
         return new AddCommand("deadline", description, deadline, null);

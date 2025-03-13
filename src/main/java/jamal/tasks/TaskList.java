@@ -2,6 +2,8 @@ package jamal.tasks;
 
 import java.util.ArrayList;
 
+import jamal.ui.JamalUI;
+
 /**
  * Represents a list of tasks and provides operations to modify it.
  */
@@ -129,6 +131,7 @@ public class TaskList {
                 System.out.println((i + 1) + "." + matchingTasks.get(i).getTaskDisplay());
             }
         }
+        JamalUI.showSeparator();
     }
 
     /**

@@ -24,6 +24,13 @@ public class Deadline extends Task {
         this.by = parseDateTime(by);
     }
 
+    /**
+     * Parses a date and time string into a {@code LocalDateTime} object.
+     *
+     * @param by The date and time string to parse.
+     * @return A LocalDateTime object representing the parsed date and time.
+     * @throws IllegalArgumentException If the input format is invalid.
+     */
     private LocalDateTime parseDateTime(String by) {
         try {
             // Primary expected input format (e.g., 2/12/2019 1800)
