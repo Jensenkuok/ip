@@ -8,8 +8,17 @@ import jamal.logic.Parser;
 import jamal.ui.JamalUI;
 import jamal.storage.Storage;
 
+/**
+ * The main entry point for the Jamal chatbot.
+ */
 public class Jamal {
 
+    /**
+     * The main method that starts the chatbot program.
+     * It initializes components and processes user commands.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
 
         JamalUI.showWelcomeMessage();

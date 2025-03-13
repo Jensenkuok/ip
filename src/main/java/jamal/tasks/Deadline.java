@@ -4,11 +4,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a deadline task with a specific due date.
+ * A <code>Deadline</code> object contains a description and a due date.
+ */
 public class Deadline extends Task {
     private final LocalDateTime by;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
+    /**
+     * Constructs a Deadline task with the given description and due date.
+     *
+     * @param description The description of the task.
+     * @param by The due date of the task.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = parseDateTime(by);
@@ -28,7 +38,11 @@ public class Deadline extends Task {
         }
     }
 
-
+    /**
+     * Retrieves the due date of the deadline task.
+     *
+     * @return The due date as a string.
+     */
     public String getBy() {
         return by.format(OUTPUT_FORMATTER);
     }

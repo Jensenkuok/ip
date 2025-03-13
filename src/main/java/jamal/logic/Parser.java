@@ -2,7 +2,17 @@ package jamal.logic;
 
 import jamal.command.*;
 
+/**
+ * Parses user input and returns the corresponding command.
+ */
 public class Parser {
+
+    /**
+     * Parses the given input string and returns the corresponding command.
+     *
+     * @param input The user input.
+     * @return A Command object representing the parsed command.
+     */
     public static Command parseCommand(String input) {
         input = input.trim();
 
@@ -37,6 +47,15 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses index-based commands such as mark, unmark, and delete.
+     *
+     * @param input The user input string.
+     * @param commandType The type of command (e.g., "mark", "delete").
+     * @param commandClass The command class associated with this command type.
+     * @return A Command object representing the parsed index command.
+     * @throws IllegalArgumentException If the index is missing or invalid.
+     */
     private static Command parseIndexCommand(String input, String commandType, Class<? extends Command> commandClass) {
         try {
             String numberPart = input.substring(commandType.length()).trim();
@@ -52,6 +71,13 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses and returns a Todo command.
+     *
+     * @param input The user input string.
+     * @return A new AddCommand object for a Todo task.
+     * @throws IllegalArgumentException If the description is empty.
+     */
     private static Command parseTodoCommand(String input) {
         String description = input.substring(4).trim();
         if (description.isEmpty()) throw new IllegalArgumentException("Hey, use the format: todo <task>");
@@ -74,6 +100,14 @@ public class Parser {
         return new AddCommand("event", description, from, to);
     }
 
+    /**
+     * Parses and returns a Find command.
+     * Extracts the keyword from the user input and searches for matching tasks.
+     *
+     * @param input The user input string.
+     * @return A new FindCommand object with the extracted keyword.
+     * @throws IllegalArgumentException If the keyword is missing.
+     */
     private static Command parseFindCommand(String input) {
         try {
             if (input.length() <= 5) { // Prevents substring(5) from failing
