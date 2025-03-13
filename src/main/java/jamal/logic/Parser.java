@@ -58,17 +58,6 @@ public class Parser {
         return new AddCommand("todo", description, null, null);
     }
 
-    private static Command parseDeadlineCommand(String input) {
-        int byIndex = input.indexOf("/by");
-        if (byIndex == -1) throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
-
-        String description = input.substring(9, byIndex).trim();
-        String deadline = input.substring(byIndex + 4).trim();
-
-        if (description.isEmpty() || deadline.isEmpty()) throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
-        return new AddCommand("deadline", description, deadline, null);
-    }
-
     private static Command parseEventCommand(String input) {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
@@ -99,5 +88,20 @@ public class Parser {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+    private static Command parseDeadlineCommand(String input) {
+        int byIndex = input.indexOf("/by");
+        if (byIndex == -1) {
+            throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
+        }
+
+        String description = input.substring(9, byIndex).trim();
+        String deadline = input.substring(byIndex + 4).trim();
+
+        if (description.isEmpty() || deadline.isEmpty()) {
+            throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
+        }
+
+        return new AddCommand("deadline", description, deadline, null);
     }
 }

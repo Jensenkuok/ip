@@ -18,18 +18,18 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Storage storage) {
-        Task addedTask = null;
+        Task addedTask;
 
-        switch (taskType) {
-        case "todo":
-            addedTask = tasks.addTodoTask(description);
-            break;
-        case "deadline":
-            addedTask = tasks.addDeadlineTask(description, time1);
-            break;
-        case "event":
-            addedTask = tasks.addEventTask(description, time1, time2);
-            break;
+        try {
+            addedTask = switch (taskType) {
+                case "todo" -> tasks.addTodoTask(description);
+                case "deadline" -> tasks.addDeadlineTask(description, time1);
+                case "event" -> tasks.addEventTask(description, time1, time2);
+                default -> null;
+            };
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage()); // Print error if deadline date format is invalid
+            return; // Stop execution, don't add invalid task
         }
 
         if (addedTask != null) {
