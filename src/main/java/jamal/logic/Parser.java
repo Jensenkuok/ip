@@ -23,6 +23,8 @@ public class Parser {
                 return parseDeadlineCommand(input);
             } else if (input.startsWith("event")) {
                 return parseEventCommand(input);
+            } else if (input.startsWith("find")) {
+                return parseFindCommand(input);
             } else {
                 throw new IllegalArgumentException("My bad, i don't know what that means");
             }
@@ -81,5 +83,21 @@ public class Parser {
             throw new IllegalArgumentException("Hey, use the format: event <task> /from <start> /to <end>");
 
         return new AddCommand("event", description, from, to);
+    }
+
+    private static Command parseFindCommand(String input) {
+        try {
+            if (input.length() <= 5) { // Prevents substring(5) from failing
+                throw new IllegalArgumentException("Hey, you need to enter a keyword to search.");
+            }
+            String keyword = input.substring(5).trim();
+            if (keyword.isEmpty()) {
+                throw new IllegalArgumentException("Hey, you need to enter a keyword to search.");
+            }
+            return new FindCommand(keyword);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }
