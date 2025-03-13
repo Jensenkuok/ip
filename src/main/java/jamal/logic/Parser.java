@@ -23,6 +23,8 @@ public class Parser {
                 return parseDeadlineCommand(input);
             } else if (input.startsWith("event")) {
                 return parseEventCommand(input);
+            } else if (input.startsWith("find")) {
+                return parseFindCommand(input);
             } else {
                 throw new IllegalArgumentException("My bad, i don't know what that means");
             }
@@ -56,17 +58,6 @@ public class Parser {
         return new AddCommand("todo", description, null, null);
     }
 
-    private static Command parseDeadlineCommand(String input) {
-        int byIndex = input.indexOf("/by");
-        if (byIndex == -1) throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
-
-        String description = input.substring(9, byIndex).trim();
-        String deadline = input.substring(byIndex + 4).trim();
-
-        if (description.isEmpty() || deadline.isEmpty()) throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
-        return new AddCommand("deadline", description, deadline, null);
-    }
-
     private static Command parseEventCommand(String input) {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
@@ -81,5 +72,36 @@ public class Parser {
             throw new IllegalArgumentException("Hey, use the format: event <task> /from <start> /to <end>");
 
         return new AddCommand("event", description, from, to);
+    }
+
+    private static Command parseFindCommand(String input) {
+        try {
+            if (input.length() <= 5) { // Prevents substring(5) from failing
+                throw new IllegalArgumentException("Hey, you need to enter a keyword to search.");
+            }
+            String keyword = input.substring(5).trim();
+            if (keyword.isEmpty()) {
+                throw new IllegalArgumentException("Hey, you need to enter a keyword to search.");
+            }
+            return new FindCommand(keyword);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    private static Command parseDeadlineCommand(String input) {
+        int byIndex = input.indexOf("/by");
+        if (byIndex == -1) {
+            throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
+        }
+
+        String description = input.substring(9, byIndex).trim();
+        String deadline = input.substring(byIndex + 4).trim();
+
+        if (description.isEmpty() || deadline.isEmpty()) {
+            throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
+        }
+
+        return new AddCommand("deadline", description, deadline, null);
     }
 }
