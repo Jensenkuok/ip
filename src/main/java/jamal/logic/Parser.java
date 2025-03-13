@@ -84,32 +84,6 @@ public class Parser {
         return new AddCommand("todo", description, null, null);
     }
 
-    /**
-     * Parses and returns a Deadline command.
-     *
-     * @param input The user input string.
-     * @return A new AddCommand object for a Deadline task.
-     * @throws IllegalArgumentException If the format is incorrect.
-     */
-    private static Command parseDeadlineCommand(String input) {
-        int byIndex = input.indexOf("/by");
-        if (byIndex == -1) throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
-
-        String description = input.substring(9, byIndex).trim();
-        String deadline = input.substring(byIndex + 4).trim();
-
-        if (description.isEmpty() || deadline.isEmpty()) throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
-        return new AddCommand("deadline", description, deadline, null);
-    }
-
-    /**
-     * Parses and returns an Event command.
-     * Extracts the description, start time, and end time from user input.
-     *
-     * @param input The user input string.
-     * @return A new AddCommand object for an Event task.
-     * @throws IllegalArgumentException If the format is incorrect or required fields are missing.
-     */
     private static Command parseEventCommand(String input) {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
@@ -148,5 +122,20 @@ public class Parser {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+    private static Command parseDeadlineCommand(String input) {
+        int byIndex = input.indexOf("/by");
+        if (byIndex == -1) {
+            throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
+        }
+
+        String description = input.substring(9, byIndex).trim();
+        String deadline = input.substring(byIndex + 4).trim();
+
+        if (description.isEmpty() || deadline.isEmpty()) {
+            throw new IllegalArgumentException("Hey, use the format: deadline <task> /by <time>");
+        }
+
+        return new AddCommand("deadline", description, deadline, null);
     }
 }
