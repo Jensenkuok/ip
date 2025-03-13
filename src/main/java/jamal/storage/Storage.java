@@ -11,9 +11,15 @@ import jamal.tasks.Event;
 import jamal.tasks.Task;
 import jamal.tasks.ToDo;
 
+/**
+ * Handles loading and saving of tasks to a file.
+ */
 public class Storage {
     private static final String FILE_PATH = "data/duke.txt";
 
+    /**
+     * Handles loading and saving of tasks to a file.
+     */
     public Storage() {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
@@ -33,6 +39,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return A list of tasks loaded from the file.
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -73,6 +84,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the storage file.
+     *
+     * @param tasks The list of tasks to save.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(FILE_PATH);
@@ -85,6 +101,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a task into a formatted string for file storage.
+     *
+     * @param task The task to be formatted.
+     * @return A formatted string representing the task for file storage.
+     */
     private String taskToFileFormat(Task task) {
         String type;
         String status = task.isDone() ? "1" : "0";
