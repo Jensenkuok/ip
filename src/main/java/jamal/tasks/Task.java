@@ -1,4 +1,4 @@
-package jamal;
+package jamal.tasks;
 
 public class Task {
     protected String description;
@@ -12,6 +12,10 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
+    public boolean isDone() { return isDone; }
+
+    public String getDescription() { return description; }
 
     public void markAsDone() {
         this.isDone = true;

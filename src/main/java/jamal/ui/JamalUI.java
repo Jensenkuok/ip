@@ -1,4 +1,4 @@
-package jamal;
+package jamal.ui;
 
 public class JamalUI {
     private static final String LOGO = "\n  OooOoo                         o\n"

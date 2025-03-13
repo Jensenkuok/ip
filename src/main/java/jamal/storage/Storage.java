@@ -1,10 +1,15 @@
-package jamal;
+package jamal.storage;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import jamal.tasks.Deadline;
+import jamal.tasks.Event;
+import jamal.tasks.Task;
+import jamal.tasks.ToDo;
 
 public class Storage {
     private static final String FILE_PATH = "data/duke.txt";
@@ -82,18 +87,18 @@ public class Storage {
 
     private String taskToFileFormat(Task task) {
         String type;
-        String status = task.isDone ? "1" : "0";
-        String description = task.description;
+        String status = task.isDone() ? "1" : "0";
+        String description = task.getDescription();
 
         if (task instanceof ToDo) {
             type = "T";
             return type + " | " + status + " | " + description;
         } else if (task instanceof Deadline) {
             type = "D";
-            return type + " | " + status + " | " + description + " | " + ((Deadline) task).by;
+            return type + " | " + status + " | " + description + " | " + ((Deadline) task).getBy();
         } else if (task instanceof Event) {
             type = "E";
-            return type + " | " + status + " | " + description + " | " + ((Event) task).from + " to " + ((Event) task).to;
+            return type + " | " + status + " | " + description + " | " + ((Event) task).getFrom() + " to " + ((Event) task).getTo();
         }
         return "";
     }
