@@ -200,7 +200,7 @@ Aight, take care! Catch you later.
 
 # 4. Notes on Command Format
 
-- ✅ **Lower cae format:** `todo`, `deadline`, and `mark` are valid commands.
+- ✅ **Lower case format:** `todo`, `deadline`, and `mark` are valid commands.
 - ✅ **Case Sensitive:** `TODO`, `DEADLINE`, and `MARK` are invalid commands.
 - ✅ **Parameters must be in order:** `deadline /by 2/12/2019 1800 submit report` is **invalid**, the correct order must be followed.
 - ✅ **Do not enter extra parameters:** `list 123` is invalid.
