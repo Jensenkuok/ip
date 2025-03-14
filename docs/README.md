@@ -200,10 +200,12 @@ Aight, take care! Catch you later.
 
 # 4. Notes on Command Format
 
-- ✅ **Case-Insensitive:** `TODO`, `todo`, and `ToDo` all work the same.
+- ✅ **Lower cae format:** `todo`, `deadline`, and `mark` are valid commands.
+- ✅ **Case Sensitive:** `TODO`, `DEADLINE`, and `MARK` are invalid commands.
 - ✅ **Parameters must be in order:** `deadline /by 2/12/2019 1800 submit report` is **invalid**, the correct order must be followed.
-- ✅ **Extra parameters ignored:** `list 123` works like `list`.
+- ✅ **Do not enter extra parameters:** `list 123` is invalid.
 - ✅ **Date & Time Format for Dealine Tasks:** `dd/MM/yyyy HHmm` (e.g., `2/12/2019 1800` → `Dec 02 2019, 6:00PM`).
+- ✅ **Note:** `delete`, `mark`, `unmark` works only on the full list of tasks.
 
 # 5. Saving and Loading Tasks
 
